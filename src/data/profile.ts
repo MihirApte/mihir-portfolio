@@ -13,7 +13,7 @@ export const profile = {
   instagram: "https://www.instagram.com/mihir.apte/",
   whatsapp: "https://wa.me/919130430787",
   github: "https://github.com/MihirApte",
-  workAuth: "Stamp 1G — permitted to work in Ireland",
+  workAuth: "Stamp 1G, permitted to work in Ireland",
   cv: "/Mihir-Apte-CV.pdf",
   // Drop a photo into /public (e.g. public/me.jpg) and set it here: "/me.jpg"
   photo: "/gallery/green-wall.jpg" as string | null,
@@ -26,7 +26,7 @@ export const profile = {
   tagline:
     "I turn messy data into things people can actually use, from NLP tools to physics-informed neural nets.",
   summary:
-    "MSc Computer Science (Data Science) graduate from Trinity College Dublin. I've independently scoped, built and shipped five end-to-end AI/ML projects — each with a working demo, dashboard or deployed app so the results are usable by someone else, not just a notebook. I like formulating a problem from scratch, building a proper evaluation, and being honest about where a metric is hiding something important.",
+    "MSc Computer Science (Data Science) graduate from Trinity College Dublin. I've independently scoped, built and shipped five end-to-end AI/ML projects, each with a working demo, dashboard or deployed app so the results are usable by someone else, not just a notebook. I like formulating a problem from scratch, building a proper evaluation, and being honest about where a metric is hiding something important.",
 };
 
 export const stats = [
@@ -36,10 +36,10 @@ export const stats = [
   { value: "2", label: "apps live on HuggingFace Spaces" },
 ];
 
-// ---------------------------------------------------------------------
-//  PERSONAL SECTION — intentionally empty until Mihir shares real details.
+// ============================================================
+//  PERSONAL SECTION: the "Beyond the résumé" cards. Edit, add or remove items here.
 //  Add items like: { emoji: "☕", title: "Coffee", text: "..." }
-// ---------------------------------------------------------------------
+// ============================================================
 export const personal: { emoji: string; title: string; text: string }[] = [
   {
     emoji: "🍳",
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     title: "Improving RAVE Video Editing",
     subtitle: "MSc dissertation · Trinity College Dublin",
     status: "Completed",
-    year: "2025 – 2026",
+    year: "2025 to 2026",
     accent: "#a78bfa",
     summary:
       "Made a published CVPR 2024 zero-shot video-editing model more temporally consistent by replacing its random frame shuffling with smarter frame grouping.",
@@ -117,7 +117,7 @@ export const projects: Project[] = [
       },
       {
         title: "Which signal actually mattered?",
-        text: "Ran a controlled ablation across ZoeDepth, Canny and FreeU — alone and combined — varying one conditioning signal at a time with the grouping method held fixed.",
+        text: "Ran a controlled ablation across ZoeDepth, Canny and FreeU, alone and combined, varying one conditioning signal at a time with the grouping method held fixed.",
       },
     ],
     metrics: [
@@ -142,7 +142,7 @@ export const projects: Project[] = [
     highlights: [
       {
         title: "No labels, tiny error",
-        text: "Physics-informed loss (PDE residual + boundary conditions) via second-order PyTorch autograd and a two-stage Adam → L-BFGS scheme matched a closed-form solution to within 0.0015°C — under 0.002% of the imposed 100°C difference.",
+        text: "Physics-informed loss (PDE residual + boundary conditions) via second-order PyTorch autograd and a two-stage Adam → L-BFGS scheme matched a closed-form solution to within 0.0015°C, under 0.002% of the imposed 100°C difference.",
       },
       {
         title: "From 1D steady-state to 2D transient",
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       },
       {
         title: "Diagnosing the error, not just reporting it",
-        text: "Found a near-zero (0.01) correlation between local error and gradient magnitude, then used a collocation-point ablation (30 of 1000 points cut error 50×) to show proximity to the initial condition — not local sharpness — was the real driver.",
+        text: "Found a near-zero (0.01) correlation between local error and gradient magnitude, then used a collocation-point ablation (30 of 1000 points cut error 50×) to show proximity to the initial condition, not local sharpness, was the real driver.",
       },
     ],
     metrics: [
@@ -250,7 +250,7 @@ export const projects: Project[] = [
     summary:
       "An XGBoost churn model with a SHAP-powered what-if simulator, tuned to real business costs instead of the default 0.5 threshold.",
     problem:
-      "Accuracy is a trap on imbalanced churn data. I built the model around what a mistake actually costs — 12 months of lost revenue versus roughly a €50 false alarm — and let non-technical people interrogate its decisions.",
+      "Accuracy is a trap on imbalanced churn data. I built the model around what a mistake actually costs: 12 months of lost revenue versus roughly a €50 false alarm, and let non-technical people interrogate its decisions.",
     highlights: [
       {
         title: "Threshold from evidence, not default",
@@ -290,7 +290,7 @@ export const timeline: TimelineItem[] = [
     title: "MSc Computer Science (Data Science)",
     org: "Trinity College Dublin",
     place: "Dublin, Ireland",
-    period: "Sep 2025 – Aug 2026",
+    period: "Sep 2025 to Aug 2026",
     points: [
       "Modules: Machine Learning, Data Analytics, Artificial Intelligence, Data Visualisation, Text Analytics, Scalable Computing, Information Retrieval, Security and Privacy.",
       "Dissertation: improving temporal consistency of the RAVE video-editing model.",
@@ -301,7 +301,7 @@ export const timeline: TimelineItem[] = [
     title: "Data Engineer Intern",
     org: "C4i4 Labs",
     place: "Pune, India · On-site",
-    period: "Dec 2024 – May 2025",
+    period: "Dec 2024 to May 2025",
     points: [
       "Built an NLP conversational chatbot so non-technical users could resolve data queries on their own.",
       "Built an NLP pipeline surfacing sentiment trends across the full customer feedback corpus.",
@@ -314,7 +314,7 @@ export const timeline: TimelineItem[] = [
     title: "Data Scientist Intern",
     org: "AlgoAnalytics",
     place: "Pune, India · Remote",
-    period: "Jul 2024 – Dec 2024",
+    period: "Jul 2024 to Dec 2024",
     points: [
       "Built a predictive-maintenance model (Python, scikit-learn) giving continuous anomaly detection on live sensor data for a Solar Panel Digital Twin.",
       "Developed an LLM-powered summarisation module (Hugging Face) that condensed large PowerPoint decks into decision-ready summaries.",
@@ -325,7 +325,7 @@ export const timeline: TimelineItem[] = [
     title: "BE Information Technology",
     org: "Savitribai Phule Pune University",
     place: "Marathwada Mitra Mandal's College of Engineering, Pune",
-    period: "May 2020 – Jun 2024",
+    period: "May 2020 to Jun 2024",
     points: [
       "CGPA 9.02 / 10.0. Modules included Engineering Mathematics, Numerical Methods and core Physics.",
     ],
@@ -335,7 +335,7 @@ export const timeline: TimelineItem[] = [
     title: "Software Developer Intern",
     org: "Invasystems Inc.",
     place: "Pune, India",
-    period: "Feb 2023 – May 2023",
+    period: "Feb 2023 to May 2023",
     points: [
       "Gathered the recruiting team's requirements and built a full-stack Application Tracking System (Python, Flask, SQL) that replaced a spreadsheet workflow.",
     ],

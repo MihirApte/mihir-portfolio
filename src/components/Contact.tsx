@@ -16,7 +16,7 @@ export function Contact() {
     const data = new FormData(form);
     if (!FORM_ID) {
       // Fallback until Formspree is configured: open the visitor's mail app.
-      const body = `${data.get("message")}\n\n— ${data.get("name")} (${data.get("email")})`;
+      const body = `${data.get("message")}\n\nFrom: ${data.get("name")} (${data.get("email")})`;
       window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent("Hello from your portfolio")}&body=${encodeURIComponent(body)}`;
       return;
     }

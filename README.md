@@ -1,6 +1,8 @@
-# Mihir Apte — Portfolio
+# Mihir Apte Portfolio
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · Motion · deployed on Vercel.
+
+Live site: https://mihirapte-portfolio.vercel.app
 
 ## Run locally
 ```bash
@@ -10,10 +12,10 @@ npm run dev      # http://localhost:3000
 
 ## Editing content
 Everything lives in **`src/data/profile.ts`**:
-- `personal` — "Beyond the résumé" cards (hobbies, likes, fun facts). Empty = "coming soon" placeholders.
-- `gallery` — photos for the Life section. Put images in `public/gallery/` and list them.
-- `profile.photo` — hero photo, e.g. `"/me.jpg"` after adding `public/me.jpg`.
-- `projects[].links` — add `demo` (HuggingFace Space) and `repo` (GitHub) URLs. Buttons switch from "coming soon" to real links automatically.
+- `personal`: "Beyond the résumé" cards (hobbies, likes, fun facts). If empty, "coming soon" placeholders show instead.
+- `gallery`: photos for the Life section. Put images in `public/gallery/` and list them.
+- `profile.photo`: hero photo, e.g. `"/me.jpg"` after adding `public/me.jpg`.
+- `projects[].links`: add `demo` (HuggingFace Space) and `repo` (GitHub) URLs. Buttons switch from "coming soon" to real links automatically.
 - CV download: replace `public/Mihir-Apte-CV.pdf`.
 
 ## Contact form (Formspree)
@@ -28,9 +30,3 @@ Until it is set, the form opens the visitor's email app as a fallback.
 2. Go to https://vercel.com/new, import the repo, keep the defaults (Framework: Next.js), add the env variable above, click Deploy.
 3. Every `git push` redeploys automatically.
 
-**Via CLI:**
-```bash
-npm i -g vercel
-vercel        # preview
-vercel --prod # production
-```

@@ -7,7 +7,7 @@ const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" }
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono-face" });
 
 export const metadata: Metadata = {
-  title: "Mihir Apte — Data Scientist & AI/ML Engineer",
+  title: "Mihir Apte | Data Scientist & AI/ML Engineer",
   description:
     "Portfolio of Mihir Apte: data science, NLP, generative AI and physics-informed ML projects, plus a bit about the person behind them.",
   openGraph: {
