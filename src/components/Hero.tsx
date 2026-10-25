@@ -36,7 +36,7 @@ function Typewriter({ words }: { words: string[] }) {
 }
 
 export function Hero() {
-  const [videoOpen, setVideoOpen] = useState(false);
+  const [playing, setPlaying] = useState(false);
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-5 pt-24">
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -68,11 +68,6 @@ export function Hero() {
             <a href={profile.cv} download className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:scale-105">
               <Download size={16} /> Download CV
             </a>
-            {profile.video && (
-              <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:scale-105">
-                <Play size={16} /> Watch intro
-              </button>
-            )}
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="mt-6">
             <Socials />
@@ -82,26 +77,56 @@ export function Hero() {
         <motion.div initial={{ opacity: 0, scale: 0.85, rotate: -4 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ delay: 0.3, type: "spring", stiffness: 90 }} className="relative mx-auto w-full max-w-sm">
           <div className="absolute -inset-3 rounded-[2.5rem] bg-gradient-to-br from-brand to-brand2 opacity-60 blur-xl" />
           <div className="card relative grid aspect-[4/5] place-items-center overflow-hidden rounded-[2rem]">
-            {profile.photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={profile.photo} alt={profile.name} className="h-full w-full object-cover object-top" />
+            {profile.video && playing ? (
+              <>
+                <video
+                  src={profile.video}
+                  controls
+                  autoPlay
+                  playsInline
+                  poster={profile.photo ?? undefined}
+                  onEnded={() => setPlaying(false)}
+                  className="absolute inset-0 h-full w-full bg-black object-contain"
+                />
+                <button
+                  aria-label="Close video and show photo"
+                  onClick={() => setPlaying(false)}
+                  className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/60 text-white backdrop-blur transition hover:bg-black/80"
+                >
+                  <X size={16} />
+                </button>
+              </>
             ) : (
-              <div className="text-center">
-                <div className="gradient-text font-display text-9xl font-bold">MA</div>
-                <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted">photo coming soon</p>
-              </div>
+              <>
+                {profile.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={profile.photo} alt={profile.name} className="h-full w-full object-cover object-top" />
+                ) : (
+                  <div className="text-center">
+                    <div className="gradient-text font-display text-9xl font-bold">MA</div>
+                    <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted">photo coming soon</p>
+                  </div>
+                )}
+                {profile.video && (
+                  <button
+                    aria-label="Play intro video"
+                    onClick={() => setPlaying(true)}
+                    className="group absolute inset-0 grid place-items-center bg-black/10 transition hover:bg-black/25"
+                  >
+                    <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white/90 text-brand shadow-2xl transition group-hover:scale-110">
+                      <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-white/60" />
+                      <Play size={30} className="relative ml-1" fill="currentColor" />
+                    </span>
+                    <span className="absolute bottom-5 rounded-full bg-black/55 px-3 py-1 font-mono text-xs text-white backdrop-blur">
+                      Watch my intro
+                    </span>
+                  </button>
+                )}
+              </>
             )}
           </div>
         </motion.div>
       </div>
-      {videoOpen && profile.video && (
-        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/85 p-4 backdrop-blur-md" onClick={() => setVideoOpen(false)} role="dialog" aria-modal="true">
-          <button aria-label="Close video" onClick={() => setVideoOpen(false)} className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20">
-            <X size={20} />
-          </button>
-          <video src={profile.video} controls autoPlay playsInline className="max-h-[85vh] w-full max-w-3xl rounded-2xl bg-black" onClick={(e) => e.stopPropagation()} />
-        </div>
-      )}
     </section>
   );
 }
