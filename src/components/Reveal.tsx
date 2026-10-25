@@ -19,7 +19,7 @@ export function Reveal({ children, delay = 0, className }: { children: ReactNode
 export function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
     <Reveal className="mb-12 max-w-2xl">
-      <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand">{eyebrow}</p>
+      <p className="font-mono text-sm tracking-wide text-brand">{eyebrow}</p>
       <h2 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted">{sub}</p>}
     </Reveal>

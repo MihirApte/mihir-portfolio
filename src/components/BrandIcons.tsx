@@ -25,12 +25,3 @@ export function Instagram({ size = 18, className }: P) {
     </svg>
   );
 }
-
-export function WhatsApp({ size = 18, className }: P) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <path d="M3 21l1.65-4.9A9 9 0 1 1 8 19.4L3 21z" />
-      <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2L9 9.5z" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}

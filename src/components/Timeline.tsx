@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Briefcase, GraduationCap } from "lucide-react";
 import { timeline } from "@/data/profile";
@@ -13,11 +13,19 @@ const filters = [
 
 export function Timeline() {
   const [f, setF] = useState<(typeof filters)[number]["id"]>("all");
+  useEffect(() => {
+    const onFilter = (e: Event) => {
+      const v = (e as CustomEvent<string>).detail;
+      if (v === "work" || v === "education" || v === "all") setF(v);
+    };
+    window.addEventListener("timeline-filter", onFilter);
+    return () => window.removeEventListener("timeline-filter", onFilter);
+  }, []);
   const items = timeline.filter((t) => f === "all" || t.kind === f);
 
   return (
     <section id="journey" className="mx-auto max-w-4xl px-5 py-28">
-      <SectionTitle eyebrow="03 / journey" title="How I got here" sub="From Pune to Dublin, one internship and one degree at a time." />
+      <SectionTitle eyebrow="4. Journey" title="Education and experience" sub="From Pune to Dublin: my studies and the work experience that shaped my skills." />
       <Reveal className="mb-10 flex gap-2">
         {filters.map((x) => (
           <button key={x.id} onClick={() => setF(x.id)} className={`rounded-full border px-4 py-1.5 text-sm transition ${f === x.id ? "border-transparent bg-fg text-bg" : "border-line text-muted hover:text-fg"}`}>

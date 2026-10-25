@@ -1,7 +1,7 @@
 "use client";
 import { motion, useInView, animate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { profile, stats, personal, gallery } from "@/data/profile";
+import { profile, stats, gallery, type StatTarget } from "@/data/profile";
 import { Reveal, SectionTitle } from "./Reveal";
 import { SpotCard } from "./SpotCard";
 
@@ -19,17 +19,23 @@ function Counter({ value }: { value: string }) {
   return <span ref={ref}>{shown}</span>;
 }
 
+function goTo(target: StatTarget) {
+  if (target === "projects") {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  window.dispatchEvent(new CustomEvent("timeline-filter", { detail: target === "work" ? "work" : "education" }));
+  document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" });
+}
+
 export function About() {
   return (
     <section id="about" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionTitle eyebrow="01 / about" title="A bit about me" sub="The short version of who I am, on and off the keyboard." />
+      <SectionTitle eyebrow="1. About" title="A bit about me" sub="A short introduction, with a few numbers. Select a card to jump to the details." />
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
         <Reveal>
           <SpotCard className="h-full p-8">
             <p className="text-lg leading-relaxed text-muted">{profile.summary}</p>
-            <p className="mt-5 text-sm text-muted">
-              <span className="font-mono text-brand">work status →</span> {profile.workAuth}
-            </p>
             {gallery.length >= 3 && (
               <div className="mt-8 flex items-end gap-3">
                 {[gallery[3], gallery[1], gallery[4]].map((g, i) => (
@@ -50,44 +56,18 @@ export function About() {
         <div className="grid grid-cols-2 gap-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
-              <SpotCard className="h-full p-5">
-                <div className="gradient-text font-display text-4xl font-bold"><Counter value={s.value} /></div>
-                <p className="mt-2 text-sm text-muted">{s.label}</p>
-              </SpotCard>
+              <button onClick={() => goTo(s.target)} className="group block h-full w-full text-left">
+                <SpotCard className="h-full p-5 transition duration-300 group-hover:-translate-y-1.5">
+                  <div className="gradient-text font-display text-4xl font-bold"><Counter value={s.value} /></div>
+                  <p className="mt-2 text-sm text-muted">{s.label}</p>
+                  <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-brand opacity-70 transition group-hover:opacity-100">View →</p>
+                </SpotCard>
+              </button>
             </Reveal>
           ))}
         </div>
       </div>
 
-      <Reveal className="mt-16">
-        <h3 className="font-display text-2xl font-bold">Beyond the résumé</h3>
-        <p className="mt-1 text-muted">The stuff that doesn&apos;t fit on a CV.</p>
-      </Reveal>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {personal.length > 0
-          ? personal.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.06}>
-                <motion.div whileHover={{ y: -6, rotate: -0.6 }} className="h-full">
-                  <SpotCard className="h-full p-6">
-                    <div className="text-4xl">{p.emoji}</div>
-                    <h4 className="mt-4 font-display text-xl font-semibold">{p.title}</h4>
-                    <p className="mt-2 text-muted">{p.text}</p>
-                  </SpotCard>
-                </motion.div>
-              </Reveal>
-            ))
-          : ["Things I love", "Currently into", "Fun facts"].map((t, i) => (
-              <Reveal key={t} delay={i * 0.06}>
-                <div className="grid h-full min-h-40 place-items-center rounded-[1.25rem] border border-dashed border-line p-6 text-center">
-                  <div>
-                    <div className="text-3xl">✨</div>
-                    <h4 className="mt-3 font-display text-lg font-semibold">{t}</h4>
-                    <p className="mt-1 text-sm text-muted">coming soon</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-      </div>
     </section>
   );
 }

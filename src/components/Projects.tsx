@@ -8,7 +8,7 @@ import { SpotCard } from "./SpotCard";
 export function Projects() {
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionTitle eyebrow="02 / projects" title="Things I've built" sub="Every one of these has a working demo, dashboard or deployed app. Click a card for the full story." />
+      <SectionTitle eyebrow="3. Projects" title="Selected projects" sub="Each project was built end to end. Select a card to see the details, links and results." />
       <div className="grid gap-6 md:grid-cols-2">
         {projects.map((p, i) => (
           <Reveal key={p.slug} delay={(i % 2) * 0.08} className={i === 0 ? "md:col-span-2" : ""}>

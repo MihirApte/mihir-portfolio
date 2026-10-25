@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowDown, Download, MapPin } from "lucide-react";
+import { ArrowDown, Download, MapPin, Play, X } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Socials } from "./Socials";
 
@@ -36,6 +36,7 @@ function Typewriter({ words }: { words: string[] }) {
 }
 
 export function Hero() {
+  const [videoOpen, setVideoOpen] = useState(false);
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-5 pt-24">
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -67,6 +68,11 @@ export function Hero() {
             <a href={profile.cv} download className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:scale-105">
               <Download size={16} /> Download CV
             </a>
+            {profile.video && (
+              <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-6 py-3 font-medium transition hover:scale-105">
+                <Play size={16} /> Watch intro
+              </button>
+            )}
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="mt-6">
             <Socials />
@@ -88,6 +94,14 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
+      {videoOpen && profile.video && (
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-black/85 p-4 backdrop-blur-md" onClick={() => setVideoOpen(false)} role="dialog" aria-modal="true">
+          <button aria-label="Close video" onClick={() => setVideoOpen(false)} className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20">
+            <X size={20} />
+          </button>
+          <video src={profile.video} controls autoPlay playsInline className="max-h-[85vh] w-full max-w-3xl rounded-2xl bg-black" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
     </section>
   );
 }

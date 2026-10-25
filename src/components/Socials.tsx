@@ -1,10 +1,11 @@
+import { Mail } from "lucide-react";
 import { profile } from "@/data/profile";
-import { Github, Instagram, Linkedin, WhatsApp } from "./BrandIcons";
+import { Github, Instagram, Linkedin } from "./BrandIcons";
 
 const items = [
+  { label: "Email", href: profile.emailCompose, Icon: Mail, hover: "hover:border-brand hover:text-brand" },
   { label: "LinkedIn", href: profile.linkedin, Icon: Linkedin, hover: "hover:border-[#0a66c2] hover:text-[#4aa3ff]" },
   { label: "Instagram", href: profile.instagram, Icon: Instagram, hover: "hover:border-[#e1306c] hover:text-[#ff6fa5]" },
-  { label: "WhatsApp", href: profile.whatsapp, Icon: WhatsApp, hover: "hover:border-[#25d366] hover:text-[#25d366]" },
   { label: "GitHub", href: profile.github, Icon: Github, hover: "hover:border-fg" },
 ];
 

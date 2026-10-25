@@ -1,6 +1,6 @@
 "use client";
 import { useState, type FormEvent } from "react";
-import { Mail, Phone, Send, Download, CheckCircle2 } from "lucide-react";
+import { Mail, Send, Download, CheckCircle2 } from "lucide-react";
 import { Socials } from "./Socials";
 import { profile } from "@/data/profile";
 import { Reveal, SectionTitle } from "./Reveal";
@@ -29,13 +29,12 @@ export function Contact() {
 
   const input = "w-full rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none transition focus:border-brand";
   const links = [
-    { icon: Mail, label: profile.email, href: `mailto:${profile.email}` },
-    { icon: Phone, label: profile.phone, href: profile.phoneHref },
+    { icon: Mail, label: profile.email, href: profile.emailCompose },
   ];
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-5 py-28">
-      <SectionTitle eyebrow="06 / contact" title="Let's talk" sub="Hiring, collaborating, or just want to chat about data and coffee? My inbox is open." />
+      <SectionTitle eyebrow="7. Contact" title="Get in touch" sub="I am open to data science and AI/ML roles in Ireland. If you would like to talk, I would be glad to hear from you." />
       <div className="grid gap-6 lg:grid-cols-2">
         <Reveal>
           <div className="card h-full space-y-3 p-6">
@@ -54,7 +53,7 @@ export function Contact() {
           <form onSubmit={onSubmit} className="card space-y-4 p-6">
             <input name="name" required placeholder="Your name" className={input} />
             <input name="email" type="email" required placeholder="Your email" className={input} />
-            <textarea name="message" required rows={5} placeholder="What's on your mind?" className={input} />
+            <textarea name="message" required rows={5} placeholder="Your message" className={input} />
             <button disabled={state === "sending"} className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-fg px-4 py-3 font-medium text-bg transition hover:opacity-90 disabled:opacity-60">
               <Send size={16} /> {state === "sending" ? "Sending…" : "Send message"}
             </button>
