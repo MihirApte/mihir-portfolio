@@ -125,10 +125,13 @@ export function ProjectView({ p, next }: { p: Project; next: Project }) {
             <h2 className="font-display text-2xl font-bold">Screenshots</h2>
             <div className="mt-4 grid gap-4">
               {p.images.map((img) => (
-                <a key={img.src} href={img.src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-2xl border border-line">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={img.alt} loading="lazy" className="h-auto w-full" />
-                </a>
+                <figure key={img.src}>
+                  <a href={img.src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-2xl border border-line">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img.src} alt={img.alt} loading="lazy" className="h-auto w-full" />
+                  </a>
+                  {img.caption && <figcaption className="mt-2 text-sm text-muted">{img.caption}</figcaption>}
+                </figure>
               ))}
             </div>
           </Reveal>
@@ -141,6 +144,7 @@ export function ProjectView({ p, next }: { p: Project; next: Project }) {
               <span key={t} className="rounded-full border border-line bg-card px-3.5 py-1.5 font-mono text-sm">{t}</span>
             ))}
           </div>
+          {p.limits && <p className="mt-5 text-sm text-muted">{p.limits}</p>}
         </Reveal>
 
         <Link href={`/projects/${next.slug}`} className="group mt-20 block">

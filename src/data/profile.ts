@@ -23,13 +23,13 @@ export const profile = {
   tagline:
     "I turn messy data into things people can actually use, from NLP tools to physics-informed neural networks.",
   summary:
-    "MSc Computer Science (Data Science) graduate from Trinity College Dublin. I have independently scoped, built and shipped five end-to-end AI/ML projects, each with a working demo, dashboard or deployed app so the results are usable by someone else, not just a notebook. I like formulating a problem from scratch, building a proper evaluation, and being honest about where a metric is hiding something important.",
+    "MSc Computer Science (Data Science) graduate from Trinity College Dublin. I have independently scoped, built and shipped six end-to-end data and AI/ML projects, each with a working demo, dashboard or deployed app so the results are usable by someone else, not just a notebook. I like formulating a problem from scratch, building a proper evaluation, and being honest about where a metric is hiding something important.",
 };
 
 // target: where the card takes the visitor when clicked.
 export type StatTarget = "projects" | "work" | "education";
 export const stats: { value: string; label: string; target: StatTarget }[] = [
-  { value: "5", label: "end-to-end AI/ML projects shipped", target: "projects" },
+  { value: "6", label: "end-to-end data and AI/ML projects shipped", target: "projects" },
   { value: "3", label: "internships (data engineering, data science, software)", target: "work" },
   { value: "9.02", label: "CGPA in BE Information Technology (First Class Honours)", target: "education" },
   { value: "2", label: "apps live on HuggingFace Spaces", target: "projects" },
@@ -100,7 +100,9 @@ export type Project = {
   repoPrivate?: boolean;
   notice?: string;
   // Screenshots shown on the project page, for example { src: "/projects/mortgage-1.png", alt: "..." }.
-  images?: { src: string; alt: string }[];
+  images?: { src: string; alt: string; caption?: string }[];
+  // Short honest-limits footnote shown under the tech stack.
+  limits?: string;
 };
 
 export const projects: Project[] = [
@@ -287,6 +289,87 @@ export const projects: Project[] = [
     images: [],
   },
   {
+    slug: "irish-housing-lakehouse",
+    title: "Irish Housing Market Lakehouse",
+    subtitle: "Databricks and Power BI · Public Irish housing data",
+    status: "Completed",
+    year: "Portfolio project",
+    accent: "#f59e0b",
+    summary:
+      "A lakehouse on Databricks built from public Irish housing data, with a Power BI report that compares prices, rents and affordability across all 26 counties.",
+    problem:
+      "Housing numbers are easy to quote and hard to trust. I built the full path from four public Irish sources to a Power BI report: raw files land in dated folders, flow through Bronze, Silver and Gold layers, and every step is reconciled and checked against an independent SQL answer key.",
+    highlights: [
+      {
+        title: "Raw files land as received",
+        text: "Raw files from the Property Price Register and three CSO tables land in dated folders with source file and load date columns, then flow through Bronze, Silver and Gold layers. All 4 Bronze tables reconcile to their source files with zero row differences.",
+      },
+      {
+        title: "Silver cleans and flags, it does not delete",
+        text: "Non-market and VAT exclusive sales are marked instead of removed (41,190 and 143,179 rows), and 1,088 fully identical duplicate rows are dropped. 27 automated data quality rules guard the layer.",
+      },
+      {
+        title: "Gold is a star schema",
+        text: "Four fact tables at clear grains (sales, price index, rent and income) and four dimensions, with 0 sales lost in joins.",
+      },
+      {
+        title: "A scheduled Databricks Job that stops on failure",
+        text: "A Databricks Job chains four notebooks and stops if any row count, data quality rule or independent answer key check fails. A full run completes in 5 minutes 11 seconds.",
+      },
+      {
+        title: "Power BI report on top",
+        text: "A 3 page report with 13 DAX measures and a time intelligence calculation group, connected to a Databricks SQL warehouse in Import mode, with the .pbip project version controlled on GitHub.",
+      },
+      {
+        title: "Affordability for 26 counties",
+        text: "Joined CSO income and rent to Register median prices to compare price to income and price to rent from 2010 to 2024, and flagged 5,277 unusual sales with an interquartile range rule on log prices.",
+      },
+    ],
+    metrics: [
+      { value: "812,018", label: "sales analysed" },
+      { value: "442/442", label: "independent checks matched" },
+      { value: "5,277", label: "unusual sales flagged" },
+    ],
+    tools: [
+      "Databricks",
+      "Unity Catalog",
+      "Delta tables",
+      "SQL warehouse",
+      "Databricks Jobs",
+      "PySpark",
+      "SQL",
+      "Power BI",
+      "DAX",
+      "Calculation groups",
+      ".pbip",
+      "Git",
+      "GitHub",
+    ],
+    links: { repo: "https://github.com/MihirApte/irish-housing-lakehouse" },
+    images: [
+      {
+        src: "/projects/housing-market-overview.png",
+        alt: "Power BI page 1, Irish Housing Market Overview, with headline figures and two trend charts",
+        caption:
+          "Page 1, Market Overview. Headline cards show median price, market sales, year on year change and the non-market share of registered sales, above a monthly median price trend and the CSO price index for the nation, Dublin and the rest of the country.",
+      },
+      {
+        src: "/projects/housing-county-comparison.png",
+        alt: "Power BI page 2, County Comparison, with a ranked bar chart and a county detail table",
+        caption:
+          "Page 2, County Comparison. Counties are ranked by median sale price next to a detail table of market sales, median price, year on year change and average monthly rent, with year and new or second-hand filters.",
+      },
+      {
+        src: "/projects/housing-affordability.png",
+        alt: "Power BI page 3, Affordability by County, with a province trend, a scatter plot and a county by year table",
+        caption:
+          "Page 3, Affordability by County. Price to income by province over time, price to rent plotted against price to income for each county, and a county by year table of price to income.",
+      },
+    ],
+    limits:
+      "Honest limits: income is per person, not per household, and the CSO price index has no county series outside Dublin.",
+  },
+  {
     slug: "churn-simulator",
     title: "Customer Churn Business Simulator",
     subtitle: "Live app · HuggingFace Spaces",
@@ -467,12 +550,16 @@ export const skills: { group: string; items: string[] }[] = [
     items: ["Physics-informed NNs", "PDE residual loss", "Finite-difference methods", "Cost-driven decision optimisation", "L-BFGS & Adam", "K-means design", "Hyperparameter search", "Explainability", "Evaluation pipelines"],
   },
   {
+    group: "Data engineering & lakehouse",
+    items: ["Databricks", "Unity Catalog", "Delta tables", "PySpark", "Bronze, Silver and Gold layers", "Databricks SQL warehouse", "Databricks Jobs", "Star schema modelling", "Data quality rules", "Data reconciliation"],
+  },
+  {
     group: "Data viz & BI",
-    items: ["Power BI", "DAX", "Tableau", "Streamlit", "FastAPI/JS dashboards", "SHAP visuals", "Matplotlib", "Seaborn"],
+    items: ["Power BI", "DAX", "Calculation groups", "Power BI .pbip projects", "Tableau", "Streamlit", "FastAPI/JS dashboards", "SHAP visuals", "Matplotlib", "Seaborn"],
   },
   {
     group: "Programming & backend",
-    items: ["Python", "SQL", "PostgreSQL", "JavaScript", "HTML/CSS", "FastAPI", "Flask", "Git", "REST APIs", "OAuth 2.0"],
+    items: ["Python", "SQL", "PostgreSQL", "JavaScript", "HTML/CSS", "FastAPI", "Flask", "Git", "GitHub", "REST APIs", "OAuth 2.0"],
   },
   {
     group: "Tools & deployment",
